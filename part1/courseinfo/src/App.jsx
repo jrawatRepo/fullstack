@@ -4,41 +4,53 @@ const Header = (props) => {
     )
 }
 
-const Part = (props) => {
-    return (
-        <p> {props.name} {props.excercise}</p>
-    )
-}
-
 const Content = (props) => {
+    const partContent = props.parts.map( part => (
+        <p key = {part.name}>
+            {part.name} {part.exercise}
+        </p>
+    ));
+    console.log(partContent)
     return (
         <div>
-            <Part name={props.parts[0].part1} excercise={props.parts[0].excercise}/>
-            <Part name={props.parts[1].part1} excercise={props.parts[1].excercise}/>
-            <Part name={props.parts[2].part1} excercise={props.parts[2].excercise}/>
-
+            {partContent}
         </div>
     )
 }
 const Total = (props) => {
+    let total = 0;
+    props.parts.forEach(value => {
+        total = total + value.exercise
+    })
+    console.log(total)
     return (
-        <p>Number of exercises {props.total}</p>
+        <p>Number of exercises: {total}</p>
     )
 }
+/* eslint-disable no-unused-vars */
 const App = () => {
     const course = 'Half Stack application development'
-    const partAndExcercise = [
-        {part1: "Fundamentals of React", excercise: 10}, {
-            part1: "Using props to pass data",
-            excercise: 7
-        }, {part1: "State of a component", excercise: 14},
+    const parts = [
+        {
+            name: 'Fundamentals of React',
+            exercise: 10
+        },
+        {
+            name: 'Using props to pass data',
+            exercise: 7
+
+        },
+        {
+            name: 'State of a component',
+            exercise: 14
+        }
     ]
+
     return (
         <div>
-            <Header name={course}/>
-            <Content parts={partAndExcercise}/>
-            <Total
-                total={partAndExcercise[0].excercise + partAndExcercise[1].excercise + partAndExcercise[2].excercise}/>
+            <Header course={course}/>
+            <Content parts={parts}/>
+            <Total parts={parts}/>
         </div>
     )
 }
